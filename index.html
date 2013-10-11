@@ -1,0 +1,150 @@
+<!doctype html>
+<html ng-app="app">
+  <head>
+	<meta charset="utf-8" />
+
+	<!-- Set the viewport width to device width for mobile -->
+	<meta name="viewport" content="width=device-width" />
+
+	<title>Welcome to Foundation | Feed</title>
+
+	<script src="http://code.angularjs.org/1.2.0-rc.2/angular.min.js"></script>
+	<script src="http://code.angularjs.org/1.2.0-rc.2/angular-animate.min.js"></script>
+	<link rel="stylesheet"
+		  href="http://cdn.jsdelivr.net/foundation/4.3.2/css/foundation.min.css"
+		  />
+	<link rel="stylesheet" href="http://cdn.jsdelivr.net/foundation/4.3.2/css/normalize.css">
+	<link rel="stylesheet" href="http://cdn.jsdelivr.net/foundation/4.3.2/css/foundation.min.css">
+
+	<script src="http://cdn.jsdelivr.net/foundation/4.3.2/js/vendor/custom.modernizr.js"></script>
+	<script src="app.js"></script>
+	<style>
+	  body { 
+	     text-align:center;
+	  }
+	  .placeholder {
+	      position:absolute;
+	      width:100%;
+	      height:100%;
+	      background-color: yellow;
+	      color: red;
+	      z-index:10;
+	      border: 3px solid red;
+	      line-height:90px;
+	      font-size:32px;
+	      text-align:center;
+	  }
+      .answerblock {
+	      height:90px;
+	      background:
+	          radial-gradient(black 15%, transparent 16%) 0 0,
+	          radial-gradient(black 15%, transparent 16%) 8px 8px,
+	          radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+	          radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+          background-color:#282828;
+          background-size:16px 16px;
+	      color: white;
+	      font-size:42px;
+	      text-align:center;
+	      line-height:90px;
+	      border: 4px double white;
+	  }
+	  .scoreblock { 
+	      height: 90px;
+	      background:
+	          radial-gradient(black 15%, transparent 16%) 0 0,
+	          radial-gradient(black 15%, transparent 16%) 8px 8px,
+    	      radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+	          radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+	      background-color:#800000;
+	      background-size:16px 16px;
+	      color: white;
+	      font-size:42px;
+	      text-align:center;
+	      line-height:90px;
+	      border: 4px double white;
+	  }
+	  .score { 
+	    position:absolute
+	    height: 100px;
+	    width: 150px !important;
+	    font-size:50px;
+	    line-height:80px;
+	    color: red;
+	    background: black; 
+	    border: 10px double red; 
+	    left:50%;
+	    margin-left: 75px !important;
+	  }
+	</style>
+  </head>
+  <body>
+	<div ng-controller="FamilyFeudCtrl">
+	<div class="row">
+      <div class="large-12 columns">
+		<div class="panel">
+          <h1>Family Feud</h1>
+		</div>
+      </div>
+	</div>
+	<div class="row">
+	  <div class="large-4 columns">
+		<div class="row">
+		  Team 1
+		</div>
+		<div class="row score">
+		  {{team1_score}}
+		</div>
+		<div class="row">
+		  <button class="button medium expand" ng-click="team1_score=team1_score+total">Score</button>
+        </div>
+	  </div>
+	  <div class="large-4 columns">
+		<div class="row score">
+		  {{total}}
+		</div>
+		<div class="row score" style="padding-top:10px;">
+		  {{strikes}}
+		</div>
+	  </div>
+	  <div class="large-4 columns">
+		<div class="row">
+		  Team 2
+		</div>
+		<div class="row score">
+		  {{team2_score}}
+		</div>
+		<div class="row">
+		  <button class="button medium expand" ng-click="team2_score=team2_score+total">Score</button>
+        </div>
+	  </div>
+	</div>
+	<div class="row">
+	  <div class="panel">
+		<h1>{{active_question.question}}</h1>
+	  </div>
+	</div>
+	<div ng-repeat="row in rows" class="row">
+	  <div ng-repeat="answer in row" class="large-6 columns">
+        <div class="row">
+		  <div class="placeholder" ng-hide="answer.hidden" ng-click="hideAnswer(answer.index-1)">{{answer.index}}</div>		
+		  <div class="large-8 columns answerblock">{{answer.response}}</div>
+		  <div class="large-4 columns scoreblock">{{answer.score}}</div>
+		</div>		
+	  </div>
+	</div>
+	<div class="row">
+	  <div class="large-12 columns">
+		<ul class="button-group">
+		  <li ng-repeat="question in questions"><span class="small
+		  button" ng-click="setActiveQuestion($index)">Question {{$index}}</span></li>
+	    </ul>
+	  </div>
+	</div>
+	<div class="row">
+	  <button class="button medium expand" ng-click="wrongGuess()">X</button>
+	</div>
+  </body>
+  <script src="http://cdn.jsdelivr.net/foundation/4.3.2/js/vendor/zepto.js"></script>
+  <script src="http://cdn.jsdelivr.net/foundation/4.3.2/js/foundation.min.js"></script>
+</html>
